@@ -5,3 +5,7 @@ type Query {
     booksByReleased(releasedInput: ReleaseHistoryInput!): [Book]
     mobileApps(mobileAppFilter: MobileAppFilter): [MobileApp]
 }
+
+scalar Url
+scalar Date
+scalar NonNegativeInt

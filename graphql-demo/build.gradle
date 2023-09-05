@@ -22,9 +22,11 @@ dependencies {
 	implementation 'com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter:7.3.2'
 	implementation 'com.netflix.graphql.dgs:graphql-dgs-extended-scalars:7.3.2'
 	implementation 'net.datafaker:datafaker:2.0.1'
+	implementation 'com.netflix.graphql.dgs:graphql-dgs-extended-scalars:7.3.2'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.apache.commons:commons-lang3:3.13.0'
+
 }
 
 tasks.named('test') {
@@ -34,4 +36,5 @@ tasks.named('test') {
 generateJava {
 	packageName = 'com.course.graphql.generated'
 	generateClient = true
+	typeMapping = ["Date": "java.time.LocalDate", "NonNegativeInt": "java.lang.Integer", "Url": "java.net.URL"]
 }
