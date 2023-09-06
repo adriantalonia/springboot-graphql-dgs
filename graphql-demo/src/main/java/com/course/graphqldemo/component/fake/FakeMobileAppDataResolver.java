@@ -39,8 +39,9 @@ public class FakeMobileAppDataResolver {
                 && StringUtils.containsIgnoreCase(mobileApp.getVersion(),
                 StringUtils.defaultIfBlank(mobileAppFilter.getVersion(), StringUtils.EMPTY))
                 && mobileApp.getReleaseDate().isAfter(
-                        Optional.ofNullable(mobileAppFilter.getReleasedAfter()).orElse(LocalDate.MIN))
-                && mobileApp.getDownloaded() >= Optional.ofNullable(mobileAppFilter.getMinimumDownload()).orElse(0);
+                Optional.ofNullable(mobileAppFilter.getReleasedAfter()).orElse(LocalDate.MIN))
+                && mobileApp.getDownloaded() >=
+                Optional.ofNullable(mobileAppFilter.getMinimumDownload()).orElse(0);
 
         if (!isAppMatch) {
             return false;
@@ -57,6 +58,11 @@ public class FakeMobileAppDataResolver {
             return false;
         }
 
+        if (mobileAppFilter.getCategory() != null && !mobileApp.getCategory().equals(mobileAppFilter.getCategory())) {
+            return false;
+        }
+
         return true;
     }
+
 }

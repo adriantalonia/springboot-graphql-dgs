@@ -27,18 +27,20 @@ public class FakeMobileAppDataSource {
         for (int i = 0; i < 20; i++) {
             var addresses = new ArrayList<Address>();
             var author = Author.newBuilder().addresses(addresses)
-                    .name(faker.book().author())
+                    .name(faker.app().author())
                     .originCountry(faker.country().name())
                     .build();
             var mobileApp = MobileApp.newBuilder()
                     .name(faker.app().name())
-                    .author(author)
+                    .author(author).version(faker.app().version())
                     .platform(randomMobileAppPlatform())
                     .appId(UUID.randomUUID().toString())
-                    .downloaded(faker.number().numberBetween(1, 1_500_00))
-                    .homepage(new URL("https://" + faker.internet().url()))
                     .releaseDate(LocalDate.now().minusDays(faker.random().nextInt(365)))
-                    //.category(MobileAppCategory.values()[faker.random().nextInt(MobileAppCategory.values().length)])
+                    .downloaded(faker.number().numberBetween(1, 1_500_000))
+                    .homepage(new URL("https://" + faker.internet().url()))
+                    .category(MobileAppCategory.values()[
+                            faker.random().nextInt(MobileAppCategory.values().length)]
+                    )
                     .build();
 
             for (int j = 0; j < ThreadLocalRandom.current().nextInt(1, 3); j++) {
@@ -49,17 +51,23 @@ public class FakeMobileAppDataSource {
                         .street(faker.address().streetAddress())
                         .zipCode(faker.address().zipCode())
                         .build();
+
                 addresses.add(address);
             }
+
             MOBILE_APPS_LIST.add(mobileApp);
         }
     }
 
     private List<String> randomMobileAppPlatform() {
-        return switch (ThreadLocalRandom.current().nextInt(10) % 3) {
-            case 0 -> List.of("android");
-            case 1 -> List.of("ios");
-            default -> List.of("ios", "android");
-        };
+        switch (ThreadLocalRandom.current().nextInt(10) % 3) {
+            case 0:
+                return List.of("android");
+            case 1:
+                return List.of("ios");
+            default:
+                return List.of("ios", "android");
+        }
     }
+
 }
