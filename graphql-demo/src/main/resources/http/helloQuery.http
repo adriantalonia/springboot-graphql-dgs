@@ -1,0 +1,25 @@
+GRAPHQL http://localhost:8080/graphql
+
+query {
+  oneHello {
+    ...allFields
+  }
+
+  allHellos {
+    ...allFields
+  }
+
+}
+
+fragment allFields on Hello {
+  text
+  randomNumber
+}
+
+
+
+
+
+
+
+
