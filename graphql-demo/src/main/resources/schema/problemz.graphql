@@ -1,0 +1,109 @@
+type User {
+    id: ID!
+    userName: String!
+    email: String
+    avatar: Url
+    createDataTime: DateTime!
+    displayName: String
+
+    """ Relation """
+    problems: [Problem!]
+}
+
+type Problem implements SearchableItem {
+    id: ID!
+    createDateTime: DateTime!
+    prettyCreateDateTime: String
+    title: String!
+    content: String!
+    tags: [String]!
+    solutionCount: NonNegativeInt!
+
+    """ Relation """
+    author: User!
+    solutions: [Solution!]
+}
+
+type Solution implements SearchableItem {
+    id: ID!
+    createDateTime: DateTime!
+    prettyCreateDateTime: String
+    content: String!
+    category: SolutionCategory
+    voteAsGodCount: NonNegativeInt
+    voteAsBadCount: NonNegativeInt
+
+}
+
+enum SolutionCategory {
+    EXPLANATION
+    REFERENCE
+}
+
+interface SearchableItem {
+    id: ID!
+    createDateTime: DateTime!
+    prettyCreateDateTime: String
+    content: String!
+}
+
+input SearchItemFilter {
+    keyword: String
+}
+
+input UserCreateInput {
+    username: String!
+    email: String!
+    password: String!
+    displayName: String
+    avatar: Url
+}
+
+input UserLoginInput {
+    username: String!
+    password: String!
+}
+
+input UserActivationInput {
+    username: ID!
+    active: Boolean!
+}
+
+input ProblemCreateInput {
+    title: String!
+    content: String!
+    tags: [String!]!
+}
+
+input SolutionCreateInput {
+    content: String!
+    category: SolutionCategory!
+    problemId: ID!
+}
+
+input SolutionVoteInput {
+    solutionId: ID!
+    voteAsGood: Boolean!
+}
+
+type UserAuthToken {
+    authToken: String
+    expiryTime: DateTime
+}
+
+type UserResponse {
+    user: User
+    authToken: UserAuthToken
+}
+
+type ProblemResponse {
+    problem: Problem
+}
+
+type SolutionResponse {
+    solution: Solution
+}
+
+type UserActivationResponse {
+    isActive: Boolean!
+}
