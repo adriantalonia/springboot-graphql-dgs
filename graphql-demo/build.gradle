@@ -24,10 +24,11 @@ dependencies {
 	implementation 'net.datafaker:datafaker:2.0.1'
 	implementation 'com.netflix.graphql.dgs:graphql-dgs-extended-scalars:7.3.2'
 	implementation 'com.netflix.graphql.dgs:graphql-dgs-subscriptions-websockets-autoconfigure:7.3.2'
+	implementation 'org.postgresql:postgresql:42.6.0'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.1.2'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.apache.commons:commons-lang3:3.13.0'
-
 
 }
 
