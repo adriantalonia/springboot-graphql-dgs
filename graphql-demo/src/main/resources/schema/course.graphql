@@ -34,7 +34,6 @@ type Mutation {
     solutionCreate(solution: SolutionCreateInput!): SolutionResponse!
     solutionVote(vote: SolutionVoteInput!): SolutionResponse!
 }
-}
 
 type Subscription {
     randomStock: Stock
