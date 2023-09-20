@@ -4,6 +4,7 @@ import com.course.graphql.generated.DgsConstants;
 import com.course.graphql.generated.types.Problem;
 import com.course.graphql.generated.types.ProblemCreateInput;
 import com.course.graphql.generated.types.ProblemResponse;
+import com.course.graphqldemo.service.query.ProblemzQueryService;
 import com.course.graphqldemo.util.GraphqlBeanMapper;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsData;
@@ -12,16 +13,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestHeader;
 import reactor.core.publisher.Flux;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @DgsComponent
 public class ProblemDataResolver {
 
-    /*@Autowired
+    @Autowired
     private ProblemzQueryService queryService;
 
-    @Autowired
+    /*@Autowired
     private ProblemzCommandService commandService;
 
     @Autowired
@@ -36,13 +38,13 @@ public class ProblemDataResolver {
     @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.ProblemDetail)
     public Problem getProblemDetail(@InputArgument(name = "id") String problemId) {
         var problemzId = UUID.fromString(problemId);
-        var problemz = queryService.problemzDetail(problemzId)
-                .orElseThrow(DgsEntityNotFoundException::new);
+        var problemz = queryService.problemzDetail(problemzId).get();
+                //.orElseThrow(DgsEntityNotFoundException::new);
 
         return GraphqlBeanMapper.mapToGraphql(problemz);
     }
 
-    @DgsData(parentType = DgsConstants.MUTATION.TYPE_NAME, field = DgsConstants.MUTATION.ProblemCreate)
+    /*@DgsData(parentType = DgsConstants.MUTATION.TYPE_NAME, field = DgsConstants.MUTATION.ProblemCreate)
     public ProblemResponse createProblem(
             @RequestHeader(name = "authToken", required = true) String authToken,
             @InputArgument(name = "problem") ProblemCreateInput problemCreateInput) {
@@ -57,5 +59,5 @@ public class ProblemDataResolver {
     @DgsData(parentType = DgsConstants.SUBSCRIPTION_TYPE, field = DgsConstants.SUBSCRIPTION.ProblemAdded)
     public Flux<Problem> subscribeProblemAdded() {
         return commandService.problemzFlux().map(GraphqlBeanMapper::mapToGraphql);
-    }
+    }*/
 }

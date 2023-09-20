@@ -10,6 +10,7 @@ import org.ocpsoft.prettytime.PrettyTime;
 
 import java.time.ZoneOffset;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -39,7 +40,7 @@ public class GraphqlBeanMapper {
         var createDateTime = original.getCreationTimestamp().atOffset(ZONE_OFFSET);
         var author = mapToGraphql(original.getCreatedBy());
         var convertedSolutions = original.getSolutions().stream()
-//                .sorted(Comparator.comparing(Solutionz::getCreationTimestamp).reversed())
+                //.sorted(Comparator.comparing(Solutionz::getCreationTimestamp).reversed())
                 .map(GraphqlBeanMapper::mapToGraphql)
                 .collect(Collectors.toList());
         var tagList = List.of(original.getTags().split(","));

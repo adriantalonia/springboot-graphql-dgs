@@ -45,6 +45,7 @@ interface SearchableItem {
     createDateTime: DateTime!
     prettyCreateDateTime: String
     content: String!
+    author: User!
 }
 
 input SearchItemFilter {

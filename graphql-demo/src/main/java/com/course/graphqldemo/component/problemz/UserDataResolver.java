@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 @DgsComponent
 public class UserDataResolver {
 
-    @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.Me)
+    /*@DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.Me)
     public User accountInfo(@RequestHeader(name = "authToken", required = true) String authToken) {
         var userz = userzQueryService.findUserzByAuthToken(authToken)
                 .orElseThrow(DgsEntityNotFoundException::new);
@@ -67,5 +67,5 @@ public class UserDataResolver {
                 .isActive(updated.isActive()).build();
 
         return userActivationResponse;
-    }
+    }*/
 }

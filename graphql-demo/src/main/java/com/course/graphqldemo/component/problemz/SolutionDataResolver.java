@@ -27,7 +27,7 @@ public class SolutionDataResolver {
     @Autowired
     private SolutionzCommandService solutionzCommandService;*/
 
-    @DgsData(parentType = DgsConstants.MUTATION.TYPE_NAME,
+    /*@DgsData(parentType = DgsConstants.MUTATION.TYPE_NAME,
             field = DgsConstants.MUTATION.SolutionCreate)
     public SolutionResponse createSolution(
             @RequestHeader(name = "authToken", required = true) String authToken,
@@ -75,5 +75,5 @@ public class SolutionDataResolver {
             field = DgsConstants.SUBSCRIPTION.SolutionVoteChanged)
     public Flux<Solution> subscribeSolutionVote(@InputArgument(name = "solutionId") String solutionId) {
         return solutionzCommandService.solutionzFlux().map(GraphqlBeanMapper::mapToGraphql);
-    }
+    }*/
 }
