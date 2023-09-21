@@ -2,19 +2,28 @@ package com.course.graphqldemo.component.problemz;
 
 import com.course.graphql.generated.DgsConstants;
 import com.course.graphql.generated.types.*;
+import com.course.graphqldemo.service.command.UserzCommandService;
+import com.course.graphqldemo.service.query.UserzQueryService;
 import com.course.graphqldemo.util.GraphqlBeanMapper;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsData;
 import com.netflix.graphql.dgs.InputArgument;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestHeader;
 
 @DgsComponent
 public class UserDataResolver {
 
-    /*@DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.Me)
+    @Autowired
+    private UserzCommandService userzCommandService;
+
+    @Autowired
+    private UserzQueryService userzQueryService;
+
+    @DgsData(parentType = DgsConstants.QUERY_TYPE, field = DgsConstants.QUERY.Me)
     public User accountInfo(@RequestHeader(name = "authToken", required = true) String authToken) {
-        var userz = userzQueryService.findUserzByAuthToken(authToken)
-                .orElseThrow(DgsEntityNotFoundException::new);
+        var userz = userzQueryService.findUserzByAuthToken(authToken).get();
+                //.orElseThrow(DgsEntityNotFoundException::new);
 
         return GraphqlBeanMapper.mapToGraphql(userz);
     }
@@ -50,7 +59,7 @@ public class UserDataResolver {
     }
 
     //@Secured("ROLE_ADMIN")
-    @DgsData(parentType = DgsConstants.MUTATION.TYPE_NAME, field = DgsConstants.MUTATION.UserActivation)
+    /*@DgsData(parentType = DgsConstants.MUTATION.TYPE_NAME, field = DgsConstants.MUTATION.UserActivation)
     public UserActivationResponse userActivation(
             @InputArgument(name = "user") UserActivationInput userActivationInput) {
 //        var userAuth = userzQueryService.findUserzByAuthToken(authToken)

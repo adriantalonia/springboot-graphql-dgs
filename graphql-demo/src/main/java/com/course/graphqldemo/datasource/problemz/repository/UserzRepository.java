@@ -1,6 +1,7 @@
 package com.course.graphqldemo.datasource.problemz.repository;
 
 import com.course.graphqldemo.datasource.problemz.entity.Userz;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,4 +12,11 @@ import java.util.UUID;
 public interface UserzRepository extends CrudRepository<Userz, UUID> {
 
     Optional<Userz> findByUsernameIgnoreCase(String username);
+
+    @Query(nativeQuery = true, value = "select u.* "
+            + "from userz u inner join userz_token ut "
+            + "on u.id = ut.user_id "
+            + "where ut.auth_token = ? "
+            + " and ut.expiry_timestamp > current_timestamp")
+    Optional<Userz> findUserByToken(String authToken);
 }
