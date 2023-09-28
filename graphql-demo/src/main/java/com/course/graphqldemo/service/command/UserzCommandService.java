@@ -52,9 +52,9 @@ public class UserzCommandService {
         return userzRepository.save(userz);
     }
 
-    /*public Optional<Userz> activateUser(String username, boolean isActive) {
+    public Optional<Userz> activateUser(String username, boolean isActive) {
         userzRepository.activateUser(username, isActive);
 
         return userzRepository.findByUsernameIgnoreCase(username);
-    }*/
+    }
 }

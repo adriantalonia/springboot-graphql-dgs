@@ -2,6 +2,8 @@ package com.course.graphqldemo.component.problemz;
 
 import com.course.graphql.generated.DgsConstants;
 import com.course.graphql.generated.types.*;
+import com.course.graphqldemo.exception.ProblemzAuthenticationException;
+import com.course.graphqldemo.exception.ProblemzPermissionsException;
 import com.course.graphqldemo.service.command.UserzCommandService;
 import com.course.graphqldemo.service.query.UserzQueryService;
 import com.course.graphqldemo.util.GraphqlBeanMapper;
@@ -9,6 +11,7 @@ import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsData;
 import com.netflix.graphql.dgs.InputArgument;
 import com.netflix.graphql.dgs.exceptions.DgsEntityNotFoundException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestHeader;
 
@@ -60,15 +63,16 @@ public class UserDataResolver {
     }
 
     //@Secured("ROLE_ADMIN")
-    /*@DgsData(parentType = DgsConstants.MUTATION.TYPE_NAME, field = DgsConstants.MUTATION.UserActivation)
+    @DgsData(parentType = DgsConstants.MUTATION.TYPE_NAME, field = DgsConstants.MUTATION.UserActivation)
     public UserActivationResponse userActivation(
-            @InputArgument(name = "user") UserActivationInput userActivationInput) {
-//        var userAuth = userzQueryService.findUserzByAuthToken(authToken)
-//                .orElseThrow(ProblemzAuthenticationException::new);
-//
-//        if (!StringUtils.equals(userAuth.getUserRole(), "ROLE_ADMIN")) {
-//            throw new ProblemzPermissionException();
-//        }
+            @InputArgument(name = "user") UserActivationInput userActivationInput,
+            @RequestHeader(name = "authToken", required = true) String authToken) {
+        var userAuth = userzQueryService.findUserzByAuthToken(authToken)
+                .orElseThrow(ProblemzAuthenticationException::new);
+
+        if (!StringUtils.equals(userAuth.getUserRole(), "ROLE_ADMIN")) {
+            throw new ProblemzPermissionsException();
+        }
 
         var updated = userzCommandService.activateUser(
                 userActivationInput.getUsername(), userActivationInput.getActive()
@@ -77,5 +81,5 @@ public class UserDataResolver {
                 .isActive(updated.isActive()).build();
 
         return userActivationResponse;
-    }*/
+    }
 }

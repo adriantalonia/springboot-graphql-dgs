@@ -78,9 +78,9 @@ public class SolutionDataResolver {
         return SolutionResponse.newBuilder().solution(GraphqlBeanMapper.mapToGraphql(updated.get())).build();
     }
 
-    /*@DgsData(parentType = DgsConstants.SUBSCRIPTION_TYPE,
+    @DgsData(parentType = DgsConstants.SUBSCRIPTION_TYPE,
             field = DgsConstants.SUBSCRIPTION.SolutionVoteChanged)
     public Flux<Solution> subscribeSolutionVote(@InputArgument(name = "solutionId") String solutionId) {
         return solutionzCommandService.solutionzFlux().map(GraphqlBeanMapper::mapToGraphql);
-    }*/
+    }
 }

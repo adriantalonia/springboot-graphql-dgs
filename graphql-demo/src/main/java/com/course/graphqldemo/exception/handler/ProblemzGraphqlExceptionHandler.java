@@ -1,6 +1,7 @@
 package com.course.graphqldemo.exception.handler;
 
 import com.course.graphqldemo.exception.ProblemzAuthenticationException;
+import com.course.graphqldemo.exception.ProblemzPermissionsException;
 import com.netflix.graphql.dgs.exceptions.DefaultDataFetcherExceptionHandler;
 import com.netflix.graphql.types.errors.ErrorType;
 import com.netflix.graphql.types.errors.TypedGraphQLError;
@@ -32,7 +33,7 @@ public class ProblemzGraphqlExceptionHandler implements DataFetcherExceptionHand
                     .error(graphqlError).build();
 
             return CompletableFuture.completedFuture(result);
-        }/* else if (exception instanceof ProblemzPermissionException) {
+        } else if (exception instanceof ProblemzPermissionsException) {
             var graphqlError = TypedGraphQLError.newBuilder().message(exception.getMessage())
                     .path(handlerParameters.getPath())
                     .errorType(ErrorType.PERMISSION_DENIED)
@@ -42,7 +43,7 @@ public class ProblemzGraphqlExceptionHandler implements DataFetcherExceptionHand
                     .error(graphqlError).build();
 
             return CompletableFuture.completedFuture(result);
-        }*/
+        }
 
         return defaultHandler.handleException(handlerParameters);
     }

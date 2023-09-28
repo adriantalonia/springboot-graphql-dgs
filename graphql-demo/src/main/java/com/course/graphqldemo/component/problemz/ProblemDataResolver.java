@@ -60,8 +60,8 @@ public class ProblemDataResolver {
         return ProblemResponse.newBuilder().problem(GraphqlBeanMapper.mapToGraphql(created)).build();
     }
 
-    /*@DgsData(parentType = DgsConstants.SUBSCRIPTION_TYPE, field = DgsConstants.SUBSCRIPTION.ProblemAdded)
+    @DgsData(parentType = DgsConstants.SUBSCRIPTION_TYPE, field = DgsConstants.SUBSCRIPTION.ProblemAdded)
     public Flux<Problem> subscribeProblemAdded() {
         return commandService.problemzFlux().map(GraphqlBeanMapper::mapToGraphql);
-    }*/
+    }
 }
