@@ -13,6 +13,7 @@ import com.netflix.graphql.dgs.InputArgument;
 import com.netflix.graphql.dgs.exceptions.DgsEntityNotFoundException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.RequestHeader;
 
 @DgsComponent
@@ -32,7 +33,7 @@ public class UserDataResolver {
         return GraphqlBeanMapper.mapToGraphql(userz);
     }
 
-    //@Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     @DgsData(parentType = DgsConstants.MUTATION.TYPE_NAME, field = DgsConstants.MUTATION.UserCreate)
     public UserResponse createUser(@InputArgument(name = "user") UserCreateInput userCreateInput) {
 //        var userAuth = userzQueryService.findUserzByAuthToken(authToken)
@@ -62,17 +63,17 @@ public class UserDataResolver {
         return userResponse;
     }
 
-    //@Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     @DgsData(parentType = DgsConstants.MUTATION.TYPE_NAME, field = DgsConstants.MUTATION.UserActivation)
     public UserActivationResponse userActivation(
-            @InputArgument(name = "user") UserActivationInput userActivationInput,
-            @RequestHeader(name = "authToken", required = true) String authToken) {
-        var userAuth = userzQueryService.findUserzByAuthToken(authToken)
+            @InputArgument(name = "user") UserActivationInput userActivationInput/*,
+            @RequestHeader(name = "authToken", required = true) String authToken*/) {
+        /*var userAuth = userzQueryService.findUserzByAuthToken(authToken)
                 .orElseThrow(ProblemzAuthenticationException::new);
 
         if (!StringUtils.equals(userAuth.getUserRole(), "ROLE_ADMIN")) {
             throw new ProblemzPermissionsException();
-        }
+        }*/
 
         var updated = userzCommandService.activateUser(
                 userActivationInput.getUsername(), userActivationInput.getActive()
