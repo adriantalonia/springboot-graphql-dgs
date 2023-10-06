@@ -1,7 +1,6 @@
 package com.course.graphqldemo;
 
-import com.course.graphqldemo.client.StarwarsRestClient;
-import com.course.graphqldemo.client.request.GraphqlRestRequest;
+import com.course.graphqldemo.client.StarwarsGraphqlClient;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,54 +8,26 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class StarwarsRestClientTests {
+public class StarwarsGraphqlClientTests {
 
     @Autowired
-    private StarwarsRestClient client;
+    private StarwarsGraphqlClient client;
 
     @Test
     void testAsJson() throws Exception {
-        var query = """
-                query allPlanets {
-                  allPlanets {
-                    planets {
-                      name
-                      climates
-                      terrains
-                    }
-                  }
-                }
-                """;
+        var json = client.asJson("allPlanets", null, null);
 
-        var body = new GraphqlRestRequest();
-        body.setQuery(query);
-
-        var result = client.asJson(body, null);
-
-        assertNotNull(result);
+        assertNotNull(json);
     }
 
     @Test
     void testAsJson_Invalid() throws Exception {
-        var query = """
-                query allPlanets {
-                  allPlanetsxxxxx {
-                    planets {
-                      name
-                      climates
-                      terrains
-                    }
-                  }
-                }
-                """;
-
-        var body = new GraphqlRestRequest();
-        body.setQuery(query);
-
         assertThrows(
                 RuntimeException.class,
                 () -> {
-                    var result = client.asJson(body, null);
+                    var json = client.asJson(
+                            "invalidOperationName", null, null
+                    );
                 }
         );
     }
@@ -90,4 +61,5 @@ public class StarwarsRestClientTests {
         assertNotNull(errors);
         assertFalse(errors.isEmpty());
     }
+
 }
