@@ -28,7 +28,7 @@ tasks.named('test') {
 }
 
 apollo {
-    service("service") {
+    service("graphql") {
         packageName.set("com.gqlclient.graphqlclient")
     }
 }
