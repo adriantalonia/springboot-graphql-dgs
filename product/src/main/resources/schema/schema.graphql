@@ -1,0 +1,71 @@
+type Manufacturer {
+    name: String!
+    originCountry: String!
+    description: String
+    producesSeries: Series @relationship(type: "produces", direction: OUT)
+}
+
+type Series {
+    name: String!
+    characteristic: [String!]
+    manufacturerProduces: Manufacturer @relationship(type: "produces", direction: IN)
+    releasesModel: Model @releationship(type: "releases", direction: OUT)
+}
+
+type Model {
+    name: String
+    onTheRoadPrice: PositiveFloat
+    lengthMm: NonNegativeInt!
+    widthMm: NonNegativeInt!
+    heightMm: NonNegativeInt!
+    exteriorColor: String!
+    interiorColor: String!
+    releaseYear: Int!
+    transmission: Transmission
+    bodyType: BodyType
+    fuel: Fuel
+    doors: NonNegativeInt
+    airBags: NonNegativeInt
+
+    seriesReleases: Series @relationship(type: "releases", direction: IN)
+    hasFeature: Feature @releationship(type: "has", direction: OUT)
+    hasEngine: Engine @relationship(type: "has", direction: OUT)
+}
+
+type Engine {
+    description: String
+    horsePower: NonNegativeInt!
+    torque: NonNegativeInt!
+    capacityCc: NonNegativeInt!
+}
+
+type Feature {
+    name: String!
+    activeByDefault: Boolean!
+    activeByRequest: Boolean!
+    installationPrice: NonNegativeFloat!
+    isSafety: Boolean!
+    isEntertainment: Boolean!
+    isPerformance: Boolean!
+    isConvenience: Boolean!
+    isDisplay: Boolean!
+}
+
+
+
+enum Transmission {
+    AUTOMATIC
+    MANUAL
+}
+
+enum BodyType {
+    SUV
+    SEDAN
+    MPV
+}
+
+enum Fuel {
+    DIESEL
+    GAS
+    ELECTRIC
+}

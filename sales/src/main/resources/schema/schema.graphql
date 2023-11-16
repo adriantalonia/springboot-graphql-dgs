@@ -1,0 +1,23 @@
+type SalesOrder {
+    orderDateTime: DateTime!
+    orderNumber: String!
+}
+
+type SalesOrderItem {
+    quantity: PositiveInt!
+    notes: String
+}
+
+type Finance {
+    baseAmount: PositiveFloat!
+    taxAmount: NonNegativeFloat!
+    discountAmount: NonPositiveFloat!
+    isLoan: Boolean
+}
+
+type Loan {
+    financeCompany: String!
+    contactPersonName: String!
+    ContactPersonPhone: String!
+    contactPersonEmail: String!
+}
