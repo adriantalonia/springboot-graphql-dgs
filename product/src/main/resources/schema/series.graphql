@@ -1,0 +1,5 @@
+type Series {
+    name: String!
+    characteristic: [String!]
+    models: [Model!]
+}

@@ -1,0 +1,11 @@
+type Feature {
+    name: String!
+    activeByDefault: Boolean!
+    activeByRequest: Boolean!
+    installationPrice: NonNegativeFloat!
+    isSafety: Boolean!
+    isEntertainment: Boolean!
+    isPerformance: Boolean!
+    isConvenience: Boolean!
+    isDisplay: Boolean!
+}

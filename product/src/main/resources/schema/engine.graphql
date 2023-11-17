@@ -1,0 +1,6 @@
+type Engine {
+    description: String
+    horsePower: NonNegativeInt!
+    torque: NonNegativeInt!
+    capacityCc: NonNegativeInt!
+}
